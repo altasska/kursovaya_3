@@ -82,3 +82,31 @@ def get_masked_account(who_get):
     masked_account = "**" + account_number[-4:]
     result = f"{account_name} {masked_account}"
     return result
+
+
+def print_last_executed_formatted_operations():
+    """
+    основная функция, выводящая 5 последних выполненных операций в необходимом формате
+    {дата} {описание перевода}
+    {откуда} -> {куда}
+    {сумма перевода} {валюта}
+    """
+    last_five_executed_operations = get_last_five_executed_operations()
+
+    for operation in last_five_executed_operations:
+
+        # сбор неотформатированных значений из словаря с последними выполненными операциями
+        date = operation.get('date', '')
+        description = operation.get('description', '')
+        who_send = operation.get('from', '')
+        who_get = operation.get('to', '')
+        amount = operation.get('operationAmount', '{}').get('amount', '')
+        currency = operation.get('operationAmount', {}).get('currency', {}).get('name', '')
+
+        # форматированние данных с помощью вышеописанных функций
+        format_date = get_formatted_date(date)
+        masked_card_account = get_masked_number(who_send)
+        masked_account = get_masked_account(who_get)
+
+        # непосредственно вывод данных в заданном формате
+        print(f"{format_date} {description}\n{masked_card_account} -> {masked_account}\n{amount} {currency}\n")
