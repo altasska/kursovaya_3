@@ -5,6 +5,8 @@ import os
 
 GOOD_PATH = os.path.join(os.path.dirname(__file__), 'operations.json')
 ABSOLUTE_PATH = os.path.abspath(GOOD_PATH)
+
+
 def get_all_operation():
     """
     функция для сбора всей информации из json-файла в одну переменную для последующей
@@ -94,7 +96,6 @@ def print_last_executed_formatted_operations():
     last_five_executed_operations = get_last_five_executed_operations()
 
     for operation in last_five_executed_operations:
-
         # сбор неотформатированных значений из словаря с последними выполненными операциями
         date = operation.get('date', '')
         description = operation.get('description', '')
