@@ -1,16 +1,17 @@
 import json
 import re
 from datetime import datetime
+import os
 
-
+GOOD_PATH = os.path.join(os.path.dirname(__file__), 'operations.json')
+ABSOLUTE_PATH = os.path.abspath(GOOD_PATH)
 def get_all_operation():
     """
     функция для сбора всей информации из json-файла в одну переменную для последующей
     работы с ней
     """
-    with open("operations.json", encoding='utf-8') as file:
+    with open(ABSOLUTE_PATH, encoding='utf-8') as file:
         all_data = json.load(file)
-
     return all_data
 
 
@@ -34,7 +35,6 @@ def get_last_five_executed_operations():
     executed_operations = get_executed_operations(all_data)
     sorted_executed_operations = sorted(executed_operations, key=lambda x: x['date'], reverse=True)
     last_five_executed_operations = sorted_executed_operations[:5]
-
     return last_five_executed_operations
 
 
